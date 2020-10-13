@@ -1,0 +1,38 @@
+{% extends 'shop/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+	<div class="col-lg-6">
+		<img style="border:1px solid #888; " width="600" height="400" src="{{product.imageURL}}">
+	</div>
+
+	<div style="padding:50px" class="col-lg-6">
+		<div>
+			<b>{{product.name}}</b><br>
+			{% if product.code %}
+			ID: {{product.code}}<br>
+			{% endif %}
+			{% if product.description.brand %}
+			Brand: {{product.description.brand}}<br>
+			{% endif %}
+			{% if product.description.size %}
+			Size: {{product.description.size}}<br>
+			{% endif %}
+			{% if product.description.user_type %}
+			User: {{product.description.user_type}}
+			{% endif %}
+		</div>
+
+		<h3></h3><br><h3></h3>
+		<form method="POST" action="{% url 'product' product.id %}">
+			{% csrf_token %}
+			<input min="1" value=1 type="number" name="quantity">
+			<input class="btn btn-dark" type="submit" value="Add to Cart">
+		</form>
+
+		<h2>Price: {{product.price}} TK</h2>
+	</div>
+</div>
+
+{% endblock content %}
